@@ -163,7 +163,18 @@ end
 def team_colors(team_name)
   game_hash.map do |location, team_data|
     if team_data[:team_name] == team_name
-      team_data[:colors]
+      return team_data[:colors]
     end
   end
+end
+
+def team_names
+  team_names = []
+  game_hash.map do |location, team_data|
+        team_names << team_data[:team_name] 
+  end
+  team_names
+end
+
+def player_numbers(team)
 end
