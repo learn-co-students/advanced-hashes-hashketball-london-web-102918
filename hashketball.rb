@@ -1,3 +1,5 @@
+require 'pry'
+
 def game_hash
   hash = {
     home: {
@@ -67,7 +69,7 @@ def game_hash
     },
   
     away: {
-      team_name: "Brooklyn Nets",
+      team_name: "Charlotte Hornets",
       colors: ["Turquoise", "Purple"],
       players: {
         
@@ -135,6 +137,33 @@ def game_hash
 end
 
 def num_points_scored(player_name)
-  game_hash.map do ||
+  points_scored = ""
+  game_hash.each do |location, team_data|
+    game_hash[location][:players].each do |player, player_data| 
+      if player_name == player_data[:player_name]
+        points_scored = player_data[:points]
+      end
+    end
+  end
+  points_scored
+end
+
+def shoe_size(player_name)
+  shoe_size = ""
+  game_hash.each do |location, team_data|
+    game_hash[location][:players].each do |player, player_data| 
+      if player_name == player_data[:player_name]
+        shoe_size = player_data[:shoe]
+      end
+    end
+  end
+  shoe_size.to_i
+end
+
+def team_colors(team_name)
+  game_hash.map do |location, team_data|
+    if team_data[:team_name] == team_name
+      team_data[:colors]
+    end
   end
 end
