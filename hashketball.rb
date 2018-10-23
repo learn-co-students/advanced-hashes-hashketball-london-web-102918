@@ -163,6 +163,28 @@ end
 def team_colors(team_name)
   game_hash.map do |location, team_data|
     if team_data[:team_name] == team_name
+      team_data[:colors]
+      binding.pry
+    end
+  end
+  points_scored
+end
+
+def shoe_size(player_name)
+  shoe_size = ""
+  game_hash.each do |location, team_data|
+    game_hash[location][:players].each do |player, player_data| 
+      if player_name == player_data[:player_name]
+        shoe_size = player_data[:shoe]
+      end
+    end
+  end
+  shoe_size.to_i
+end
+
+def team_colors(team_name)
+  game_hash.map do |location, team_data|
+    if team_data[:team_name] == team_name
       return team_data[:colors]
     end
   end
@@ -176,5 +198,14 @@ def team_names
   team_names
 end
 
-def player_numbers(team)
+def player_numbers(team_name)
+  player_numbers = []
+  game_hash.each do |location, team_data|
+      team_data[:players].each do |player, player_data|
+        player_data.each do |attribute, value| if attribute == :number then player_numbers.push(value)
+        end
+      end
+    end
+  end
+  player_numbers
 end
