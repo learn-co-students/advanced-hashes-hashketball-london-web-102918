@@ -9,8 +9,8 @@ def game_hash
         
         alan_anderson: {
           player_name: "Alan Anderson",
-          number: "0",
-          shoe: "16",
+          number: 0,
+          shoe: 16,
           points: 22,
           rebounds: 12,
           assists: 12,
@@ -21,8 +21,8 @@ def game_hash
           
          reggie_evans: {
           player_name: "Reggie Evans",
-          number: "30",
-          shoe: "14",
+          number: 30,
+          shoe: 14,
           points: 12,
           rebounds: 12,
           assists: 12,
@@ -33,8 +33,8 @@ def game_hash
           
          brook_lopez: {
           player_name: "Brook Lopez", 
-          number: "11",
-          shoe: "17",
+          number: 11,
+          shoe: 17,
           points: 17,
           rebounds: 19,
           assists: 10,
@@ -44,8 +44,8 @@ def game_hash
           
         mason_plumlee: {
           player_name: "Mason Plumlee",
-          number: "1",
-          shoe: "19",
+          number: 1,
+          shoe: 19,
           points: 26,
           rebounds: 12,
           assists: 6,
@@ -56,8 +56,8 @@ def game_hash
           
         jason_terry: {
           player_name: "Jason Terry",
-          number: "31",
-          shoe: "15",
+          number: 31,
+          shoe: 15,
           points: 19,
           rebounds: 2,
           assists: 2,
@@ -75,8 +75,8 @@ def game_hash
         
         jeff_adrien: {
           player_name: "Jeff Adrien",
-          number: "4",
-          shoe: "18",
+          number: 4,
+          shoe: 18,
           points: 10,
           rebounds: 1,
           assists: 1,
@@ -87,8 +87,8 @@ def game_hash
           
         bismak_biyombo: {
           player_name: "Bismak Biyombo",
-          number: "0",
-          shoe: "16",
+          number: 0,
+          shoe: 16,
           points: 12,
           rebounds: 4,
           assists: 7,
@@ -99,8 +99,8 @@ def game_hash
           
         desagna_diop: {
           player_name: "DeSagna Diop",
-          number: "2",
-          shoe: "14",
+          number: 2,
+          shoe: 14,
           points: 24,
           rebounds: 12,
           assists: 12,
@@ -110,8 +110,8 @@ def game_hash
           
         ben_gordon: {
           player_name: "Ben Gordon",
-          number: "8",
-          shoe: "15",
+          number: 8,
+          shoe: 15,
           points: 33,
           rebounds: 3,
           assists: 2,
@@ -122,8 +122,8 @@ def game_hash
           
         brendan_haywood: {
           player_name: "Brendan Haywood",
-          number: "33",
-          shoe: "15",
+          number: 33,
+          shoe: 15,
           points: 6,
           rebounds: 12,
           assists: 12,
@@ -157,7 +157,7 @@ def shoe_size(player_name)
       end
     end
   end
-  shoe_size.to_i
+  shoe_size
 end
 
 def team_colors(team_name)
@@ -179,33 +179,46 @@ def shoe_size(player_name)
       end
     end
   end
-  shoe_size.to_i
+  shoe_size
 end
 
 def team_colors(team_name)
-  game_hash.map do |location, team_data|
-    if team_data[:team_name] == team_name
-      return team_data[:colors]
+  game_hash.map do |location, team_stats|
+    if team_stats[:team_name] == team_name
+      return team_stats[:colors]
     end
   end
 end
 
 def team_names
   team_names = []
-  game_hash.map do |location, team_data|
-        team_names << team_data[:team_name] 
+  game_hash.map do |location, team_stats|
+        team_names << team_stats[:team_name] 
   end
   team_names
 end
 
 def player_numbers(team_name)
   player_numbers = []
-  game_hash.each do |location, team_data|
-      team_data[:players].each do |player, player_data|
-        player_data.each do |attribute, value| if attribute == :number then player_numbers.push(value)
-        end
+  game_hash.each do |location, team_stats|
+    if team_name == team_stats[:team_name]
+      team_stats[:players].each do |player, player_stats|
+        player_numbers.push(player_stats[:number])
       end
     end
   end
   player_numbers
+end
+
+def player_stats(player_name)
+  player_stats = ""
+  game_hash.each do |location, team_data|
+    team_data[:players].each do |player, player_data|
+      if player_name == player_data[:player_name]
+        player_stats = player_data
+        player_stats.delete(:player_name)
+      end
+    end
+  end
+  player_stats
 end
